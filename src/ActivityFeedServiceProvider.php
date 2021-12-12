@@ -3,10 +3,6 @@
 namespace JasperTey\ActivityFeed;
 
 use Illuminate\Support\ServiceProvider;
-use Vio\Pinball\Console\InstallPinball;
-use Vio\Pinball\Console\Make\MakeInertiaPage;
-use Vio\Pinball\Console\Make\MakeVueComponent;
-use Vio\Pinball\Console\PinballMake;
 
 class ActivityFeedServiceProvider extends ServiceProvider
 {
