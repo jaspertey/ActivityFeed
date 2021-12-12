@@ -1,0 +1,43 @@
+{
+    "name": "jaspertey/activityfeed",
+    "description": "Headless Activity Feed",
+    "license": "license",
+    "authors": [
+        {
+            "name": "Jasper Tey",
+            "email": "jasper.tey@gmail.com",
+            "homepage": ""
+        }
+    ],
+    "homepage": "https://github.com/JasperTey/ActivityFeed",
+    "keywords": [
+        "Laravel",
+        "Activity Feed"
+    ],
+    "require": {
+        "illuminate/database": "^8"
+    },
+    "require-dev": {},
+    "autoload": {
+        "psr-4": {
+            "JasperTey\\ActivityFeed\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "JasperTey\\ActivityFeed\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "JasperTey\\ActivityFeed\\ActivityFeedServiceProvider"
+            ],
+            "aliases": {
+                "Feed": "JasperTey\\ActivityFeed\\Facades\\ActivityFeed"
+            }
+        }
+    },
+    "repositories": [
+    ]
+}
