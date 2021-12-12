@@ -30,9 +30,6 @@
     },
     "extra": {
         "laravel": {
-            "providers": [
-                "JasperTey\\ActivityFeed\\ActivityFeedServiceProvider"
-            ],
             "aliases": {
                 "Feed": "JasperTey\\ActivityFeed\\Facades\\ActivityFeed"
             }
