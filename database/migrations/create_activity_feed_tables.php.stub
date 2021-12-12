@@ -19,7 +19,7 @@ class CreateActivityFeedTables extends Migration
             $table->nullableMorphs('actor');
             $table->nullableMorphs('object');
             $table->nullableMorphs('target');
-            $table->timestamp('published_at')->index();
+            $table->timestamp('published_at')->nullable()->index();
             $table->timestamps();
             $table->softDeletes();
         });
