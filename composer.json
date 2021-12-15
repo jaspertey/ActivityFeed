@@ -6,7 +6,7 @@
         {
             "name": "Jasper Tey",
             "email": "jasper.tey@gmail.com",
-            "homepage": ""
+            "homepage": "https://github.com/JasperTey"
         }
     ],
     "homepage": "https://github.com/JasperTey/ActivityFeed",
@@ -15,7 +15,9 @@
         "Activity Feed"
     ],
     "require": {
-        "illuminate/database": "^8"
+        "illuminate/database": "^8",
+        "illuminate/support": "^8",
+        "illuminate/http": "^8"
     },
     "require-dev": {},
     "autoload": {
@@ -35,6 +37,5 @@
             }
         }
     },
-    "repositories": [
-    ]
+    "repositories": []
 }
