@@ -28,6 +28,12 @@ class FeedActivity extends Model
         static::saved(function ($model) {
             $model->setGroupings();
         });
+
+        static::saving(function ($model) {
+            if (!$model->published_at) {
+                $model->published_at = now();
+            }
+        });
     }
 
     public static function make(array $attributes = [])
