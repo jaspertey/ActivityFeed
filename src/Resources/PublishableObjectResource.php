@@ -16,7 +16,7 @@ class PublishableObjectResource extends JsonResource
     {
         $resource = $this->resource;
 
-        if (method_exists($resource, 'toFeed')) {
+        if ($resource && method_exists($resource, 'toFeed')) {
             return $resource->toFeed($request);
         }
 
