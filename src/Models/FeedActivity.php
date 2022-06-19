@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Concerns\HasTimestamps;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class FeedActivity extends Model
 {
@@ -24,6 +25,12 @@ class FeedActivity extends Model
     public static function boot()
     {
         parent::boot();
+
+        static::creating(function ($model) {
+            if (!$model->actor) {
+                $model->actor()->associate(Auth::user());
+            }
+        });
 
         static::saved(function ($model) {
             $model->setGroupings();
@@ -108,6 +115,33 @@ class FeedActivity extends Model
                 return $query->where('target_type', $type)
                     ->where('target_id', $id);
             });
+        });
+    }
+
+    public function scopeActor(Builder $query, Model $model)
+    {
+        return $query->where('actor_type', $model->getMorphClass())
+            ->where('actor_id', $model->getKey());
+    }
+
+    public function scopeObject(Builder $query, Model $model)
+    {
+        return $query->where('object_type', $model->getMorphClass())
+            ->where('object_id', $model->getKey());
+    }
+
+    public function scopeTarget(Builder $query, Model $model)
+    {
+        return $query->where('target_type', $model->getMorphClass())
+            ->where('target_id', $model->getKey());
+    }
+
+    public function scopeInvolving(Builder $query, $model)
+    {
+        return $query->where(function ($query) use ($model) {
+            $query->orWhere->actor($model)
+                ->orWhere->object($model)
+                ->orWhere->target($model);
         });
     }
 
