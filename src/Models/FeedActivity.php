@@ -3,6 +3,7 @@
 namespace JasperTey\ActivityFeed\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 use Illuminate\Database\Eloquent\Concerns\HasTimestamps;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -16,6 +17,7 @@ class FeedActivity extends Model
 
     protected $casts = [
         'published_at' => 'datetime',
+        'data' => AsArrayObject::class,
     ];
 
     protected $appends = [
