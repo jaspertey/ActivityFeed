@@ -10,5 +10,5 @@ interface PublishesToFeed
      *
      * @return array
      */
-    public function toFeed();
+    public function toFeed(): array;
 }
