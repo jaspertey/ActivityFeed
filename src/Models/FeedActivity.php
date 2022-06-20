@@ -6,8 +6,11 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 use Illuminate\Database\Eloquent\Concerns\HasTimestamps;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
+use JasperTey\ActivityFeed\ActivityFeed;
+use JasperTey\ActivityFeed\Contracts\PublishesToFeed;
 
 class FeedActivity extends Model
 {
@@ -21,7 +24,8 @@ class FeedActivity extends Model
     ];
 
     protected $appends = [
-        'summary'
+        'summary',
+        'headline'
     ];
 
     public static function boot()
@@ -172,5 +176,52 @@ class FeedActivity extends Model
     public function getSummaryAttribute()
     {
         return 'Actor did something with object in target';
+    }
+
+    public function getLabelsAttribute()
+    {
+        $labels = [
+            'actor' => $this->actor_id,
+            'object' => $this->object_id,
+            'target' => $this->target_id,
+        ];
+
+        if($this->actor instanceof PublishesToFeed){
+            $labels['actor'] = $this->actor->feedLabel();
+        }
+
+        if($this->object instanceof PublishesToFeed){
+            $labels['object'] = $this->object->feedLabel();
+        }
+
+        if($this->target instanceof PublishesToFeed){
+            $labels['target'] = $this->target->feedLabel();
+        }
+
+        return $labels;
+    }
+
+    public function getHeadlineAttribute()
+    {
+        $grammar = ActivityFeed::grammar();
+        $objectMap = data_get($grammar, $this->object_type);
+
+        if (is_callable($objectMap)) {
+            $message = $objectMap($this);
+        } else {
+            $message = data_get($objectMap, $this->verb);
+        }
+
+        if (!$message) {
+            return null;
+        }
+
+        if (is_callable($message)) {
+            $message = $message($this);
+        } else {
+            $message = data_get($message, $this->verb);
+        }
+
+        return $message;
     }
 }

@@ -4,9 +4,10 @@ namespace JasperTey\ActivityFeed;
 
 class ActivityFeed
 {
-    static $strings = [];
-    static $actions = [];
-    static $objects = [];
+    public static $strings = [];
+    public static $actions = [];
+    public static $objects = [];
+    public static $grammar = [];
 
     public static function addObjects($objects = [])
     {
@@ -23,5 +24,15 @@ class ActivityFeed
     {
         static::$actions = $actions;
         return static::$actions;
+    }
+
+    public static function grammar(array $grammar = null, $merge = true)
+    {
+        if (is_array($grammar)) {
+            static::$grammar = $merge && static::$grammar
+                ? $grammar + static::$grammar : $grammar;
+        }
+
+        return static::$grammar;
     }
 }

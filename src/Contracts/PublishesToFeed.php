@@ -11,4 +11,6 @@ interface PublishesToFeed
      * @return array
      */
     public function toFeed(): array;
+
+    public function feedLabel(): string;
 }
