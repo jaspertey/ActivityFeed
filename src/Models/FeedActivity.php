@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\AsArrayObject;
 use Illuminate\Database\Eloquent\Concerns\HasTimestamps;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 use JasperTey\ActivityFeed\ActivityFeed;
@@ -25,7 +24,7 @@ class FeedActivity extends Model
 
     protected $appends = [
         'summary',
-        'headline'
+        'headline',
     ];
 
     public static function boot()
@@ -33,7 +32,7 @@ class FeedActivity extends Model
         parent::boot();
 
         static::creating(function ($model) {
-            if (!$model->actor) {
+            if (! $model->actor) {
                 $model->actor()->associate(Auth::user());
             }
         });
@@ -43,7 +42,7 @@ class FeedActivity extends Model
         });
 
         static::saving(function ($model) {
-            if (!$model->published_at) {
+            if (! $model->published_at) {
                 $model->published_at = now();
             }
         });
@@ -186,15 +185,15 @@ class FeedActivity extends Model
             'target' => $this->target_id,
         ];
 
-        if($this->actor instanceof PublishesToFeed){
+        if ($this->actor instanceof PublishesToFeed) {
             $labels['actor'] = $this->actor->feedLabel();
         }
 
-        if($this->object instanceof PublishesToFeed){
+        if ($this->object instanceof PublishesToFeed) {
             $labels['object'] = $this->object->feedLabel();
         }
 
-        if($this->target instanceof PublishesToFeed){
+        if ($this->target instanceof PublishesToFeed) {
             $labels['target'] = $this->target->feedLabel();
         }
 
@@ -212,7 +211,7 @@ class FeedActivity extends Model
             $message = data_get($objectMap, $this->verb);
         }
 
-        if (!$message) {
+        if (! $message) {
             return null;
         }
 

@@ -30,7 +30,7 @@ class FeedGrouping extends Model
                 'activity_id' => $activityId,
                 'context' => $context,
             ], [
-                'hash' => $hash
+                'hash' => $hash,
             ]);
     }
 }

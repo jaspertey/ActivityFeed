@@ -3,7 +3,6 @@
 namespace JasperTey\ActivityFeed\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
-use JasperTey\ActivityFeed\Resources\ActivityResource;
 
 class ActivityCollection extends ResourceCollection
 {

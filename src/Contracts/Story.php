@@ -8,13 +8,16 @@ use ReflectionClass;
 abstract class Story
 {
     protected $actor = null;
+
     protected $object = null;
+
     protected $target = null;
+
     protected $verb = null;
 
     public function __construct()
     {
-        if (!$this->verb) {
+        if (! $this->verb) {
             $class = get_called_class();
             $reflection = new ReflectionClass($class);
             $verb = Str::studly($reflection->getShortName());

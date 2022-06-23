@@ -31,7 +31,7 @@ class ActivityFeedServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->mergeConfigFrom(__DIR__ . '/../config/activityfeed.php', 'activityfeed');
+        $this->mergeConfigFrom(__DIR__.'/../config/activityfeed.php', 'activityfeed');
 
         // Register the service the package provides.
         $this->app->singleton('activityfeed', function ($app) {
@@ -58,14 +58,13 @@ class ActivityFeedServiceProvider extends ServiceProvider
     {
         // Publishing the configuration file.
         $this->publishes([
-            __DIR__ . '/../config/activityfeed.php' => config_path('activityfeed.php'),
+            __DIR__.'/../config/activityfeed.php' => config_path('activityfeed.php'),
         ], 'activityfeed.config');
 
         // Migrations
-        if (!class_exists('CreateActivityFeedTables')) {
+        if (! class_exists('CreateActivityFeedTables')) {
             $this->publishes([
-                __DIR__ . '/../database/migrations/create_activity_feed_tables.php.stub'
-                => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_activity_feed_tables.php'),
+                __DIR__.'/../database/migrations/create_activity_feed_tables.php.stub' => database_path('migrations/'.date('Y_m_d_His', time()).'_create_activity_feed_tables.php'),
             ], 'db');
         }
 
