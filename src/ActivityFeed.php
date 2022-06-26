@@ -12,6 +12,8 @@ class ActivityFeed
 
     public static $grammar = [];
 
+    public static $groups = [];
+
     public static function addObjects($objects = [])
     {
         static::$objects = array_merge(static::$objects, $objects);
@@ -39,5 +41,15 @@ class ActivityFeed
         }
 
         return static::$grammar;
+    }
+
+    public static function groups(array $groups = null, $merge = true)
+    {
+        if (is_array($groups)) {
+            static::$groups = $merge && static::$groups
+                ? $groups + static::$groups : $groups;
+        }
+
+        return static::$groups;
     }
 }

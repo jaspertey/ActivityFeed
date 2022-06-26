@@ -16,6 +16,17 @@ class ActivityCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'data' => $this->collection
+                ->groupBy('family_hash')
+                ->map(function ($items, $hash) {
+                    $activity = $items->shift();
+                    
+                    data_set($activity, 'children', $items);
+
+                    return $activity;
+                })
+                ->values()
+        ];
     }
 }
