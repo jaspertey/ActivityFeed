@@ -32,7 +32,7 @@ class FeedActivity extends Model
         parent::boot();
 
         static::creating(function ($model) {
-            if (!$model->actor) {
+            if (! $model->actor) {
                 $model->actor()->associate(Auth::user());
             }
         });
@@ -42,7 +42,7 @@ class FeedActivity extends Model
         });
 
         static::saving(function ($model) {
-            if (!$model->published_at) {
+            if (! $model->published_at) {
                 $model->published_at = now();
             }
         });
@@ -211,7 +211,7 @@ class FeedActivity extends Model
             $message = data_get($objectMap, $this->verb);
         }
 
-        if (!$message) {
+        if (! $message) {
             return null;
         }
 

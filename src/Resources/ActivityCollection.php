@@ -21,12 +21,12 @@ class ActivityCollection extends ResourceCollection
                 ->groupBy('family_hash')
                 ->map(function ($items, $hash) {
                     $activity = $items->shift();
-                    
+
                     data_set($activity, 'children', $items);
 
                     return $activity;
                 })
-                ->values()
+                ->values(),
         ];
     }
 }
